@@ -27,7 +27,7 @@ app.use(passport.initialize());
 
 // API Routes
 const API_VERSION = '/api/v1';
-app.use(`${API_VERSION}/admin/`, authRoutes);
+app.use(`${API_VERSION}/`, authRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
@@ -48,7 +48,7 @@ async function startServer() {
 
     app.listen(PORT, '0.0.0.0', () => {
       console.log(`Server is running on port ${PORT}`);
-      console.log(`API endpoints: ${BASE_URL}/api/v1/admin`);
+      console.log(`API endpoints: ${BASE_URL}/api/v1`);
     });
   } catch (error) {
     console.error('Unable to start server:', error);
