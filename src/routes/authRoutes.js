@@ -3,8 +3,9 @@ const express = require('express');
 const router = express.Router();
 const { checkAuth } = require('../middlewares/authMiddleware');
 const authController = require('../controllers/authController');
+const passwordController = require('../controllers/passwordController');
 
-// Check if the user is authenticated (any role)
+// Check if the user is authenticated
 router.get('/checkAuth', checkAuth, (req, res) => {
   res.status(200).json({
     success: true,
@@ -13,12 +14,13 @@ router.get('/checkAuth', checkAuth, (req, res) => {
   });
 });
 
-// Route for user login
+// Auth routes
 router.post('/login', authController.login);
-
-// Route for user logout
 router.post('/logout', checkAuth, authController.logout);
 
-
+// Password-related routes
+router.post('/forgot-password', passwordController.forgotPassword);
+router.post('/reset-password', passwordController.resetPassword);
+router.post('/change-password', checkAuth, passwordController.changePassword);
 
 module.exports = router;

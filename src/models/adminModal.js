@@ -23,11 +23,15 @@ const Admin = sequelize.define('Admin', {
             len: [6, 100]
         }
     },
-    resetPasswordToken: {
+    resetToken: {
         type: DataTypes.STRING,
         allowNull: true
     },
-    resetPasswordExpires: {
+    resetTokenAt: {
+        type: DataTypes.DATE,
+        allowNull: true
+    },
+    resetTokenExp: {
         type: DataTypes.DATE,
         allowNull: true
     }
@@ -58,8 +62,9 @@ Admin.prototype.validatePassword = async function(password) {
 Admin.prototype.toPublicJSON = function() {
     const values = { ...this.get() };
     delete values.password;
-    delete values.resetPasswordToken;
-    delete values.resetPasswordExpires;
+    delete values.resetToken;
+    delete values.resetTokenAt;
+    delete values.resetTokenExp;
     return values;
 };
 
