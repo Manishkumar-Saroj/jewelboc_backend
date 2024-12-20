@@ -8,7 +8,7 @@ const authController = require('../controllers/authController');
 router.get('/checkAuth', checkAuth, (req, res) => {
   res.status(200).json({
     success: true,
-    message: `Authenticated as ${req.role}`,
+    message: 'Authenticated Successful',
     user: req.user
   });
 });
