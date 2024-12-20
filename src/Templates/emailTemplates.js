@@ -58,7 +58,7 @@ exports.newAdminAccountTemplate = (email, resetUrl) => `<!DOCTYPE html>
         </div>
         <div class="content">
             <div class="credentials-box">
-                <p style="text-align: center">Email: <a href="mailto:${email}" style="color: #4F46E5 !important; text-decoration: none !important; font-weight: 600; font-size: 1.1rem">${email}</a></p>
+                <p style="text-align: center">Email: <a href="mailto:${email}" style="color: #4F46E5 !important; text-decoration: none !important; font-weight: 600">${email}</a></p>
             </div>
             <p style="margin:1rem;text-align:center">To access your administrator account and manage Jewelboc's system, please set up your secure password:</p>
             <div class="btn-container">
