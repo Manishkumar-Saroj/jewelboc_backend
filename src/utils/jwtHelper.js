@@ -6,7 +6,12 @@ exports.generateToken = (payload, rememberMe = false) => {
     ? process.env.JWT_REMEMBER_ME_EXPIRES_IN // 15d
     : process.env.JWT_EXPIRES_IN;           // 1d
     
-  return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn });
+  // Convert the expiration time to seconds for jwt.sign
+  const expiresInSeconds = parseInt(rememberMe 
+    ? process.env.JWT_REMEMBER_ME_COOKIE_EXPIRES_IN / 1000  
+    : process.env.JWT_COOKIE_EXPIRES_IN / 1000);
+
+  return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: expiresInSeconds });
 };
 
 // Set a JWT token as an HTTP-only cookie for user authentication
@@ -21,7 +26,7 @@ exports.setTokenCookie = (res, token, rememberMe = false) => {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     domain: process.env.COOKIE_DOMAIN,
-    sameSite: 'strict'
+    sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax'  // More lenient in development
   };
   
   res.cookie(cookieName, token, cookieOptions);
