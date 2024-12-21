@@ -9,7 +9,14 @@ exports.newAdminAccountTemplate = (email, resetUrl) => `<!DOCTYPE html>
         .container{width:100%;max-width:100%;background:#1a1536}
         .header{background:linear-gradient(135deg,#1a1536,#2a2446);color:#fff;padding:1rem;text-align:center;position:relative}
         .header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#b8c6e9,#99aee1)}
-        .header h1{font-size:1.5rem;font-weight:700;margin:0;letter-spacing:.02em;color:#b8c6e9}
+        .header h1{
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: .02em;
+            color: #b8c6e9;
+            font-family: "Lucida Handwriting", cursive;
+        }
         .content{padding:1rem 0;background-color:#1a1536;color:#fff}
         .credentials-box{
             background-color:rgba(184,198,233,.1);
