@@ -10,6 +10,7 @@ require('./src/config/passport.config');
 
 // Import routes
 const authRoutes = require('./src/routes/authRoutes');
+const userRoutes = require('./src/routes/userRoutes');
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use(passport.initialize());
 // API Routes
 const API_VERSION = '/api/v1';
 app.use(`${API_VERSION}/`, authRoutes);
+app.use(`${API_VERSION}/users`, userRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
