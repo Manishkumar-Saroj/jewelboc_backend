@@ -8,48 +8,32 @@ const storage = multer.memoryStorage();
 // Initialize multer upload configuration
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 1000000 }, // Limit file size to 1MB
+  limits: { fileSize: 5 * 1024 * 1024 }, // Increase limit to 5MB
   fileFilter: function (req, file, cb) {
     checkFileType(file, cb);
   },
-}).single('profileImage');
+}).single('image');
 
 // Function to check file type
 function checkFileType(file, cb) {
-  const filetypes = /jpeg|jpg|png|gif/;
+  const filetypes = /jpeg|jpg|png|webp/;
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
   const mimetype = filetypes.test(file.mimetype);
 
   if (mimetype && extname) {
     return cb(null, true);
   } else {
-    cb(new Error('Error: Only images (jpeg, jpg, png, gif) are allowed!'));
+    cb(new Error('Error: Only images (jpeg, jpg, png, webp) are allowed!'));
   }
 }
 
-// Function to get the default profile image as a base64 string
-function getDefaultProfileImageAsBase64() {
-  const defaultImagePath = path.join(__dirname, '..', 'assets', 'profile.png');
-  try {
-    const imageBuffer = fs.readFileSync(defaultImagePath);
-    return `data:image/png;base64,${imageBuffer.toString('base64')}`;
-  } catch (error) {
-    console.error('Error reading default profile image:', error);
-    return null;
-  }
-}
-
-// Function to convert image buffer to base64 string or return default image if buffer is empty
-function getImageBase64(imageBuffer) {
-  if (imageBuffer) {
-    return `data:image/jpeg;base64,${imageBuffer.toString('base64')}`;
-  } else {
-    return getDefaultProfileImageAsBase64();
-  }
+// Function to convert image buffer to base64 string
+function getImageBase64(imageBuffer, mimetype = 'image/jpeg') {
+  if (!imageBuffer) return null;
+  return `data:${mimetype};base64,${imageBuffer.toString('base64')}`;
 }
 
 module.exports = {
   upload,
   getImageBase64,
-  getDefaultProfileImageAsBase64,
 };
