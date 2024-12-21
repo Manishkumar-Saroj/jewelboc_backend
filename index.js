@@ -15,6 +15,7 @@ const productRoutes = require('./src/routes/productRoutes');
 const contactUsRoutes = require('./src/routes/contactUsRoutes');
 const tenureRoutes = require('./src/routes/tenureRoutes');
 const sipRoutes = require('./src/routes/sipRoutes');
+const emiRoutes = require('./src/routes/emiRoutes');
 
 const app = express();
 
@@ -38,6 +39,7 @@ app.use(`${API_VERSION}/products`, productRoutes);
 app.use(`${API_VERSION}/contact`, contactUsRoutes);
 app.use(`${API_VERSION}/tenures`, tenureRoutes);
 app.use(`${API_VERSION}/sips`, sipRoutes);
+app.use(`${API_VERSION}/emis`, emiRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
