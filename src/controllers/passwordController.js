@@ -21,7 +21,7 @@ exports.forgotPassword = async (req, res) => {
             return generateResponse(res, 404, 'Admin not found');
         }
 
-        const resetToken = `admin_${admin.id}_${uuidv4()}`;
+        const resetToken = uuidv4();
         const resetTokenAt = new Date();
         const resetTokenExp = new Date(Date.now() + 24 * 60 * 60 * 1000);
 
